@@ -60,7 +60,7 @@ print(chr(33))
 
 print('-\n-\n-')
 
-print("Si Dumnezeu a zis: \"Sa se faca lumina!\" ")
+print('Si Dumnezeu a zis: \"Sa se faca lumina!\"')
 
 print("'\t' aaaa")
 print('-\n-\n-')
@@ -69,4 +69,4 @@ print(F"For only {49:.2f} dollars! {1}".format(49 ,'Have a nice day!'))
 
 # print(f"For only {A} dollars! {B}".format(A=49, B='Have a nice day!'))
 
-print('2022')
+print('2022 "in litere doua mii.." iar Gigel a zis: \"eu sunt seful!\"')
