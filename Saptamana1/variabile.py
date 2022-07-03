@@ -65,6 +65,8 @@ print("Si Dumnezeu a zis: \"Sa se faca lumina!\" ")
 print("'\t' aaaa")
 print('-\n-\n-')
 
-print(F"For only {49:.2f} dollars! {1}".format('49,Have a nice day!'))
+print(F"For only {49:.2f} dollars! {1}".format(49 ,'Have a nice day!'))
 
-print(f"For only {a1} dollars! {b2}".format(a1=49, b2='Have a nice day!'))
+# print(f"For only {A} dollars! {B}".format(A=49, B='Have a nice day!'))
+
+print('2022')
