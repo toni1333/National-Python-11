@@ -22,7 +22,7 @@ while nr_incercari <= 7:
         if litera == cuvant_initial[0] or litera == cuvant_initial[-1]:
             print("Ai incercat prima sau ultima litera")
         else:
-            if litera not in litere_incercate:
+            if litera not in litere_incercaten:
                 nr_incercari += 1
                 print("litera a fost deja incercata ", ",".join(litere_incercate))
             litere_incercate.add(litera)
