@@ -56,7 +56,7 @@ validator = validator_cnp(variabila_cnp)
 print(validator)
 
 # CIFRA DE CONTROL - ultima parte a ValidatoruluiCNP
-# Am creat separat o functie care verifica cifra de control pe numarul 279146358279
+# Am creat separat un cod care verifica cifra de control pe numarul 279146358279
 print('\n')
 print('='*40)
 print('CNP-ul dat initial: "279146358279" ')
