@@ -1,0 +1,4 @@
+categoria1
+categoria2 
+categoria3 
+categoria4 
