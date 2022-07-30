@@ -33,12 +33,12 @@ def validare_judet(cnp):
     return False
 
 
-
 def numar_trei_cifre(cnp):
     cifre = int(cnp[9:12])
     if cifre >= 1 and cifre < 999:
         return True
     return False
+
 
 def validator_cnp(cnp):
     """
@@ -51,26 +51,26 @@ def validator_cnp(cnp):
     return "Invalid"
 
 
+def cifra_de_control():
+    # CIFRA DE CONTROL - ultima parte a ValidatoruluiCNP
+    print('=' * 40)
+    print('CNP-ul dat initial: "279146358279" ')
+    cnp_fara_n = variabila_cnp[0:12] # cnp este variabila_cnp fara ultima cifra
+    print(cnp_fara_n)
+    cnp_explicit = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9]
+    suma_cifre_cnp = 0
+    for x in cnp_explicit:
+        suma_cifre_cnp += (int(cnp_explicit[x]) * int(cnp_fara_n[x]))
+    numar_verificat = suma_cifre_cnp % 11
+    if numar_verificat == 10:
+        cifra_control = 1
+    else:
+        cifra_control = numar_verificat
+    cnp_explicit.append(cifra_control)
+    print(f'CNP-ul prelucrat: {cnp_explicit} iar cifra de control este: {cifra_control}')
+
+
 variabila_cnp = validare(input("Introdu CNP-ul: "))
 validator = validator_cnp(variabila_cnp)
 print(validator)
-
-# CIFRA DE CONTROL - ultima parte a ValidatoruluiCNP
-# Am creat separat un cod care verifica cifra de control pe numarul 279146358279
-print('\n')
-print('='*40)
-print('CNP-ul dat initial: "279146358279" ')
-cnp_explicit = [2,7,9,1,4,6,3,5,8,2,7,9]
-suma_cifre_cnp = 0
-for x in cnp_explicit:
-    suma_cifre_cnp += (cnp_explicit[x] * cnp_explicit[x])
-numar_verificat = suma_cifre_cnp % 11
-if numar_verificat == 10:
-    cifra_control = 1
-else:
-    cifra_control = numar_verificat
-cnp_explicit.append(cifra_control)
-print(f'CNP-ul prelucrat: {cnp_explicit}')
-
-
-
+cifra_de_control()
