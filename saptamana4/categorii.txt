@@ -1,7 +1,7 @@
 categoria1
 categoria2
-categoria3 
-categoria4 
-categoria5 
+categoria3
+categoria4
+categoria5
 categoria6
-categoria7
+categoria7 
