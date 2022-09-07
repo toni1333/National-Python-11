@@ -49,8 +49,10 @@ conversie=json.dumps(dataset)
 
 
 def get_year_data(tara,an):
+    pass
 
 print(type(description))
 
 print(type(dataset))
 print(type(conversie))
+print(conversie)
