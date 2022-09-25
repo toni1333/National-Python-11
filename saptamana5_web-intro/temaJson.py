@@ -1,6 +1,3 @@
-import json
-
-
 
 
 description = ('Country', ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'])
@@ -45,14 +42,215 @@ dataset = [
     ('UK', ['83 ', '87 ', '88 ', '90 ', '91 ', '93 ', '94 ', '95 ', '96 ']),
     ('XK', [': ', ': ', ': ', ': ', ': ', ': ', '89 ', '93 ', '93 ']), ]
 
-conversie=json.dumps(dataset)
+# dataset_list=json.dumps(dataset)
+
+# print(type(dataset))
+# print(dataset[1])
+# am scris tarile "manual"
+lista_tari = ['Albania', 'Austria', 'Bosnia și Herțegovina','Belgia','Bulgaria',
+              'Elveția','Cipru','Cehia','Germania','Danemarca',
+              'Ceuta', 'Estonia', 'Grecia', 'Spania', 'Finlanda',
+              'Franța', 'Croatia', 'Ungaria', 'Irlanda', 'Islanda', 'Italia',
+              'Lituania','Luxemburg','Letonia','Muntenegru','Macedonia de Nord',
+              'Malta', 'Țarile de Jos', 'Norvegia', 'Polonia',
+              'Portugalia', 'Romania', 'Serbia', 'Suedia', 'Slovenia',
+              'Slovacia', 'Turcia', 'Regatul Unit','Cosovo']
 
 
-def get_year_data(tara,an):
-    pass
+lista_ani = []
+lista_data_set = []
 
-print(type(description))
+for x in description[1]:
+    lista_ani.append(x)      #am apenduit anii din description in lista ani
+print('1 Lista ani: ',lista_ani)
+print('2 Lista Tari: ',lista_tari)
+for y in dataset:
+    lista_data_set.append(y[1])   # am apenduit lista data din dataset
+print('3 Lista data: ', lista_data_set)
 
-print(type(dataset))
-print(type(conversie))
-print(conversie)
+
+lista_goala = []             # aici am introdus 0 in loc de :
+for i in range(len(lista_data_set)):
+    for x in lista_data_set[i]:
+       if x.strip() == ':':
+           x = '0'
+           lista_goala.append(x)
+       else:
+           lista_goala.append(x)
+lista_data_set.clear()
+for y in range(0,len(lista_goala),9):
+        lista_data_set.append(lista_goala[y:y+9])
+
+print("4 lista data set cu zero ", lista_data_set)
+
+
+def get_year_data(dataset,an):
+
+    dataset=dataset
+    lista_goala=[]
+    lista_completare = []
+    get_year_data_dict19 = {}
+    get_year_data_dict18 = {}
+    get_year_data_dict17 = {}
+    get_year_data_dict16 = {}
+    get_year_data_dict15 = {}
+    get_year_data_dict14 = {}
+    get_year_data_dict13 = {}
+    get_year_data_dict12 = {}
+    get_year_data_dict11 = {}
+
+    for x in range(len(lista_data_set)):
+        lista_completare.append(lista_data_set[x][8])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict19['2019'] = lista_goala
+    lista_goala=[]
+    lista_completare=[]
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][7])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict18['2018'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][6])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict17['2017'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][5])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict16['2016'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][4])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict15['2015'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][3])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict14['2014'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][2])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict13['2013'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][1])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict12['2012'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    for x in range(len(dataset)):
+        lista_completare.append(lista_data_set[x][0])
+    lista_zip=zip(lista_tari,lista_completare)
+    for x in lista_zip:
+        lista_goala.append(x)
+    get_year_data_dict11['2011'] = lista_goala
+    lista_goala = []
+    lista_completare = []
+
+
+    if an == '2019':
+        print(get_year_data_dict19)
+    elif an == '2018':
+        print(get_year_data_dict18)
+    elif an == '2017':
+        print(get_year_data_dict17)
+    elif an == '2016':
+        print(get_year_data_dict16)
+    elif an == '2015':
+        print(get_year_data_dict15)
+    elif an == '2014':
+        print(get_year_data_dict14)
+    elif an == '2013':
+        print(get_year_data_dict13)
+    elif an == '2012':
+        print(get_year_data_dict12)
+    elif an == '2011':
+        print(get_year_data_dict11)
+    else:
+        print("Ati introdus un an nevalid, mai incerca-ti intre anii 2011 si 2019")
+
+
+
+def get_country_data(dataset,tara):
+    dataset = lista_data_set
+    dict_tari = {}
+    lista_zip = []
+
+
+    for x in range(len(lista_data_set)):
+        dict_tari[lista_tari[x]] = list(zip([x for x in reversed(lista_ani)], [y for y in reversed(lista_data_set[x])]))
+    for k,v in dict_tari.items():
+        dict_g = {}
+        if k == tara:
+            dict_g[k] = v
+            print(dict_g)
+
+
+
+
+def perform_average(param):
+    country_data = {}
+
+    for x in range(len(lista_data_set)):
+        country_data[lista_tari[x]] = list([y for y in (lista_data_set[x])])
+    for k, v in country_data.items():
+        dict_g = {}
+
+        if k == param:
+            dict_g[k] = v
+            for y in dict_g.values():
+                n_int = []
+                for i in y:
+                    i = int(i)
+                    n_int.append(i)
+                average = sum(n_int) / len(n_int)
+            print(f"Average for {param} is:", average)
+
+# aici am prelucrat lista si am adaugat 'year' si 'coverage'
+
+
+
+get_year_data(dataset,'2019')
+get_country_data(dataset,'Romania')
+perform_average('Romania')
