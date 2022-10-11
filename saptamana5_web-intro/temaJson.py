@@ -1,4 +1,4 @@
-
+import csv
 
 description = ('Country', ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'])
 dataset = [
@@ -24,8 +24,8 @@ dataset = [
     ('IS', ['93 ', '95 ', '96 ', '96 ', ': ', ': ', '98 ', '99', '98 ']),
     ('IT', ['62 ', '63 ', '69 ', '73 ', '75 ', '79 ', '81 ', '84 ', '85 ']),
     ('LT', ['60 ', '60 ', '65 ', '66 ', '68 ', '72 ', '75 ', '78 ', '82 ']),
-    ('LU', ['91 ', '93 ', '94 ', '96 ', '97 ', '97 ', '97 ', '93 b', '95 ']),
-    ('LV', ['64 ', '69 ', '72 ', '73 ', '76 ', '77 b', '79 ', '82 ', '85 ']),
+    ('LU', ['91 ', '93 ', '94 ', '96 ', '97 ', '97 ', '97 ', '93 ', '95 ']),
+    ('LV', ['64 ', '69 ', '72 ', '73 ', '76 ', '77 ', '79 ', '82 ', '85 ']),
     ('ME', [': ', '55 ', ': ', ': ', ': ', ': ', '71 ', '72 ', '74 ']),
     ('MK', [': ', '58 ', '65 ', '68 ', '69 ', '75 ', '74 ', '79', '82 ']),
     ('MT', ['75 ', '77 ', '78 ', '80 ', '81 ', '81 ', '85 ', '84 ', '86 ']),
@@ -35,17 +35,14 @@ dataset = [
     ('PT', ['58 ', '61 ', '62 ', '65 ', '70 ', '74 ', '77 ', '79 ', '81 ']),
     ('RO', ['47 ', '54 ', '58 ', '61 ', '68 ', '72 ', '76 ', '81 ', '84 ']),
     ('RS', [': ', ': ', ': ', ': ', '64 ', ': ', '68 ', '73 ', '80 ']),
-    ('SE', ['91 ', '92 ', '93 ', '90 ', '91 ', '94 b', '95 ', '93 ', '96 ']),
+    ('SE', ['91 ', '92 ', '93 ', '90 ', '91 ', '94 ', '95 ', '93 ', '96 ']),
     ('SI', ['73 ', '74 ', '76 ', '77 ', '78 ', '78 ', '82 ', '87 ', '89 ']),
     ('SK', ['71 ', '75 ', '78 ', '78 ', '79 ', '81 ', '81 ', '81 ', '82 ']),
     ('TR', [': ', '47 ', '49 ', '60 ', '70 ', '76 ', '81 ', '84', '88 ']),
     ('UK', ['83 ', '87 ', '88 ', '90 ', '91 ', '93 ', '94 ', '95 ', '96 ']),
     ('XK', [': ', ': ', ': ', ': ', ': ', ': ', '89 ', '93 ', '93 ']), ]
 
-# dataset_list=json.dumps(dataset)
 
-# print(type(dataset))
-# print(dataset[1])
 # am scris tarile "manual"
 lista_tari = ['Albania', 'Austria', 'Bosnia și Herțegovina','Belgia','Bulgaria',
               'Elveția','Cipru','Cehia','Germania','Danemarca',
@@ -69,7 +66,7 @@ for y in dataset:
 print('3 Lista data: ', lista_data_set)
 
 
-lista_goala = []             # aici am introdus 0 in loc de :
+lista_goala = []             # aici am introdus 0 in loc de ":"
 for i in range(len(lista_data_set)):
     for x in lista_data_set[i]:
        if x.strip() == ':':
@@ -108,7 +105,6 @@ def get_year_data(dataset,an):
     lista_goala=[]
     lista_completare=[]
 
-
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][7])
     lista_zip=zip(lista_tari,lista_completare)
@@ -117,7 +113,6 @@ def get_year_data(dataset,an):
     get_year_data_dict18['2018'] = lista_goala
     lista_goala = []
     lista_completare = []
-
 
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][6])
@@ -128,7 +123,6 @@ def get_year_data(dataset,an):
     lista_goala = []
     lista_completare = []
 
-
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][5])
     lista_zip=zip(lista_tari,lista_completare)
@@ -137,7 +131,6 @@ def get_year_data(dataset,an):
     get_year_data_dict16['2016'] = lista_goala
     lista_goala = []
     lista_completare = []
-
 
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][4])
@@ -148,7 +141,6 @@ def get_year_data(dataset,an):
     lista_goala = []
     lista_completare = []
 
-
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][3])
     lista_zip=zip(lista_tari,lista_completare)
@@ -157,7 +149,6 @@ def get_year_data(dataset,an):
     get_year_data_dict14['2014'] = lista_goala
     lista_goala = []
     lista_completare = []
-
 
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][2])
@@ -168,7 +159,6 @@ def get_year_data(dataset,an):
     lista_goala = []
     lista_completare = []
 
-
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][1])
     lista_zip=zip(lista_tari,lista_completare)
@@ -178,16 +168,12 @@ def get_year_data(dataset,an):
     lista_goala = []
     lista_completare = []
 
-
     for x in range(len(dataset)):
         lista_completare.append(lista_data_set[x][0])
     lista_zip=zip(lista_tari,lista_completare)
     for x in lista_zip:
         lista_goala.append(x)
     get_year_data_dict11['2011'] = lista_goala
-    lista_goala = []
-    lista_completare = []
-
 
     if an == '2019':
         print(get_year_data_dict19)
@@ -215,8 +201,6 @@ def get_year_data(dataset,an):
 def get_country_data(dataset,tara):
     dataset = lista_data_set
     dict_tari = {}
-    lista_zip = []
-
 
     for x in range(len(lista_data_set)):
         dict_tari[lista_tari[x]] = list(zip([x for x in reversed(lista_ani)], [y for y in reversed(lista_data_set[x])]))
@@ -236,7 +220,6 @@ def perform_average(param):
         country_data[lista_tari[x]] = list([y for y in (lista_data_set[x])])
     for k, v in country_data.items():
         dict_g = {}
-
         if k == param:
             dict_g[k] = v
             for y in dict_g.values():
@@ -245,12 +228,75 @@ def perform_average(param):
                     i = int(i)
                     n_int.append(i)
                 average = sum(n_int) / len(n_int)
-            print(f"Average for {param} is:", average)
-
-# aici am prelucrat lista si am adaugat 'year' si 'coverage'
+                print(f"Average for {param} is:", average)
 
 
+def data_set_include_average():
+    lista_goala = [[int(j) for j in i] for i in lista_data_set]
+    lista_medie = []
+    for x in lista_goala:
+        lista_for = x
+        suma = sum(lista_for)/len(lista_for)
+        lista_medie.append(suma)  #am obtinut in lista_medie toate mediile ale tarilor
+
+    lista_goala = []
+    for y in range(len(lista_medie)):
+        num_activ = lista_medie[y]
+        num_activ = float(num_activ)
+        num_activ = "{:.2f}".format(num_activ) #am limitat la 2 cifre dupa virgula
+        lista_medie[y] = num_activ
+
+    for z in range(len(lista_data_set)):
+        lista_data_set[z].append(lista_medie[z])
+
+    print("Lista date cu mediile adaugate pe ultima coloana", lista_data_set)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-----------------------------------------------------------
+#  de aici ruleaza programul
 
 get_year_data(dataset,'2019')
 get_country_data(dataset,'Romania')
-perform_average('Romania')
+perform_average('Albania')
+data_set_include_average()    #am creat o functie care adauga media la finalul coloanei si am afisat
+
+# for x in lista_data_set:
+#     lst=[]
+#     lst.append(x)
+# print("lst", lst)
+# lst=[elem.split(' ') for lstt in lista_data_set for elem in lstt]
+# lst=[[int(num) for num in lstt[:]] for lstt in lst]
+# print("LISTA ", lst)
+
+
+    # for y in x:
+    #     y=int(y)
+    #     print('...',y)
+    # li1 = []
+    # li2 = []
+    # coloana_medie = []
+    # li1.append(y)
+    # print('x',li1)
+#     li2 = [eval(i) for i in li1]
+#     suma = sum(li2) / len(li2)
+#     coloana_medie.append(suma)
+#
+# print("coloana medie ", coloana_medie)
+
+
+# with open('temaJson.csv', 'w') as file:
+#     writer = csv.writer(file)
+

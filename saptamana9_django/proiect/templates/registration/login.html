@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="col-mid-6" style="padding: 10%">
+            <label>Username</label>
+            <input type="text" name="username">
+            <label>Pasword</label>
+            <input type="password" name="password">
+            <button type="submit" class="btn btn-info">Login</button>
+            <span style="color: red:">{{ form.non_field_errors }}</span>
+            <a href="{% url 'password_reset' %}">Vrei sa iti resetezi parola?</a>
+        </div>
+    </form>
+{% endblock %}
