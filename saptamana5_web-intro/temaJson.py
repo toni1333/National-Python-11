@@ -1,8 +1,11 @@
-import csv
+import matplotlib.pyplot as plot
+import pandas as pd
+
+
 
 description = ('Country', ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'])
 dataset = [
-    ('AL', [': ', ': ', ': ', ': ', ': ', ': ', ': ', '84 ', ':']),
+    ('AL', [': ', ': ', ': ', ': ', ': ', ': ', ': ', '84 ', ': ']),
     ('AT', ['75 ', '79 ', '81 ', '81 ', '82 ', '85 ', '89 ', '89 ', '90 ']),
     ('BA', [': ', ': ', ': ', ': ', ': ', ': ', ': ', '69 ', '72 ']),
     ('BE', ['77 ', '78 ', '80 ', '83 ', '82 ', '85 ', '86 ', '87 ', '90 ']),
@@ -44,12 +47,12 @@ dataset = [
 
 
 # am scris tarile "manual"
-lista_tari = ['Albania', 'Austria', 'Bosnia și Herțegovina','Belgia','Bulgaria',
-              'Elveția','Cipru','Cehia','Germania','Danemarca',
+lista_tari = ['Albania','Austria','Bosnia si Hertegovina','Belgia','Bulgaria',
+              'Elvetia','Cipru','Cehia','Germania','Danemarca',
               'Ceuta', 'Estonia', 'Grecia', 'Spania', 'Finlanda',
-              'Franța', 'Croatia', 'Ungaria', 'Irlanda', 'Islanda', 'Italia',
+              'Franta', 'Croatia', 'Ungaria', 'Irlanda', 'Islanda', 'Italia',
               'Lituania','Luxemburg','Letonia','Muntenegru','Macedonia de Nord',
-              'Malta', 'Țarile de Jos', 'Norvegia', 'Polonia',
+              'Malta', 'Tarile de Jos', 'Norvegia', 'Polonia',
               'Portugalia', 'Romania', 'Serbia', 'Suedia', 'Slovenia',
               'Slovacia', 'Turcia', 'Regatul Unit','Cosovo']
 
@@ -66,7 +69,7 @@ for y in dataset:
 print('3 Lista data: ', lista_data_set)
 
 
-lista_goala = []             # aici am introdus 0 in loc de ":"
+lista_goala = []             # aici am inlocuit ":" cu 0
 for i in range(len(lista_data_set)):
     for x in lista_data_set[i]:
        if x.strip() == ':':
@@ -79,9 +82,16 @@ for y in range(0,len(lista_goala),9):
         lista_data_set.append(lista_goala[y:y+9])
 
 print("4 lista data set cu zero ", lista_data_set)
+print()
+
+global dictionar_final
+dictionar_final = {}
+
+lista_medie_g = []
 
 
-def get_year_data(dataset,an):
+def get_year_data(dataset,an):            # in partea aceasta a codului am lasat asa "desfasurat" sa am amintire
+                                          #      cum am inceput sa scriu cod...
 
     dataset=dataset
     lista_goala=[]
@@ -213,6 +223,7 @@ def get_country_data(dataset,tara):
 
 
 
+
 def perform_average(param):
     country_data = {}
 
@@ -228,6 +239,8 @@ def perform_average(param):
                     i = int(i)
                     n_int.append(i)
                 average = sum(n_int) / len(n_int)
+                average = float(average)
+                average= "{:.1f}".format(average)  # am limitat dupa virgula sa afiseze o cifra
                 print(f"Average for {param} is:", average)
 
 
@@ -239,17 +252,31 @@ def data_set_include_average():
         suma = sum(lista_for)/len(lista_for)
         lista_medie.append(suma)  #am obtinut in lista_medie toate mediile ale tarilor
 
-    lista_goala = []
     for y in range(len(lista_medie)):
         num_activ = lista_medie[y]
         num_activ = float(num_activ)
         num_activ = "{:.2f}".format(num_activ) #am limitat la 2 cifre dupa virgula
         lista_medie[y] = num_activ
+        lista_medie_g.append(lista_medie[y])
 
     for z in range(len(lista_data_set)):
         lista_data_set[z].append(lista_medie[z])
 
     print("Lista date cu mediile adaugate pe ultima coloana", lista_data_set)
+
+
+
+def create_final_data():
+    dict_final = {}
+    csv_columns = ["tara","an"]
+    for x in range(len(lista_data_set)):
+        dict_final[lista_tari[x]] = list(zip([x for x in reversed(lista_ani)], # reversed ca sa fie ca in cerinta 2019,2018...
+                                             [y for y in reversed(lista_data_set[x])]))
+    for k, v in dict_final.items():
+            dict_final[k] = v
+            dictionar_final[k] = v
+    print("dict_final",dict_final)
+    print()
 
 
 
@@ -268,35 +295,46 @@ def data_set_include_average():
 #-----------------------------------------------------------
 #  de aici ruleaza programul
 
-get_year_data(dataset,'2019')
-get_country_data(dataset,'Romania')
-perform_average('Albania')
-data_set_include_average()    #am creat o functie care adauga media la finalul coloanei si am afisat
-
-# for x in lista_data_set:
-#     lst=[]
-#     lst.append(x)
-# print("lst", lst)
-# lst=[elem.split(' ') for lstt in lista_data_set for elem in lstt]
-# lst=[[int(num) for num in lstt[:]] for lstt in lst]
-# print("LISTA ", lst)
+get_year_data(dataset,'2019')          # dupa anul ales
+get_country_data(dataset,'Romania')    # dupa tara aleasa
+perform_average('Romania')             # media pe tara aleasa
+create_final_data()                    # am facut un dictionar care sa contina datele tara + date
+data_set_include_average()             #am creat o functie care adauga media la finalul coloanei media si am afisat
 
 
-    # for y in x:
-    #     y=int(y)
-    #     print('...',y)
-    # li1 = []
-    # li2 = []
-    # coloana_medie = []
-    # li1.append(y)
-    # print('x',li1)
-#     li2 = [eval(i) for i in li1]
-#     suma = sum(li2) / len(li2)
-#     coloana_medie.append(suma)
-#
-# print("coloana medie ", coloana_medie)
+
+description_list = list(description)    #salvare date in CSV
+value = [ year for year in description[1]]
+lista_valori = []
+lista_valori.append(description_list[0])
+header_csv = lista_valori + value
 
 
-# with open('temaJson.csv', 'w') as file:
-#     writer = csv.writer(file)
+dictionar_csv = dict(dataset)
+dataset_csv = []
+for k,v in dictionar_csv.items():
+    dataset_csv.append([k]+v)
 
+
+df = pd.DataFrame(dataset_csv, columns=header_csv)
+df.replace(': ', 0, inplace=True)
+df.to_csv('temaJson.csv', index=0)
+df = pd.read_csv('temaJson.csv')
+
+
+print("CSV",df)
+print()
+
+# df.to_excel('temaJson.xls')
+
+print("Describe")
+print(df.describe())
+df.plot()                              # Describe
+
+
+df.plot(kind='scatter', x='AL',y='AT',color='red')
+plot.show()
+
+
+df['RO'].plot(kind='hist')
+plot.show()
