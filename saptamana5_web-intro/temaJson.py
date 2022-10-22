@@ -303,38 +303,47 @@ data_set_include_average()             #am creat o functie care adauga media la 
 
 
 
-description_list = list(description)    #salvare date in CSV
-value = [ year for year in description[1]]
-lista_valori = []
-lista_valori.append(description_list[0])
-header_csv = lista_valori + value
+
+#---------------------------------
 
 
-dictionar_csv = dict(dataset)
+description[1].append('medie')          #salvare date in CSV si inlocuire ":" cu "0
+lista_country = []                      # salavare medie pe ultima coloana
+lista_country.append(description[0])
+header_csv = lista_country+list(description[1])
+
+
+lista_tari_1 =[]
+for x in dataset:
+    lista_tari_1.append(x[0])
+
+
 dataset_csv = []
+dictionar_csv = dict(zip(lista_tari_1,lista_data_set))
 for k,v in dictionar_csv.items():
     dataset_csv.append([k]+v)
-
-
-df = pd.DataFrame(dataset_csv, columns=header_csv)
-df.replace(': ', 0, inplace=True)
-df.to_csv('temaJson.csv', index=0)
-df = pd.read_csv('temaJson.csv')
-
-
-print("CSV",df)
+df = pd.DataFrame(dataset_csv,columns=header_csv)
+df.to_csv('temaJson.csv',index=0)
 print()
+print("CSV",df)
 
-# df.to_excel('temaJson.xls')
 
+
+
+
+print()
 print("Describe")
-print(df.describe())
-df.plot()                              # Describe
+print(df.describe())                                    # Describe
 
 
-df.plot(kind='scatter', x='AL',y='AT',color='red')
-plot.show()
+
+# df.to_excel('temaJson.xls') # am salvat si in Excel (dar l am comentat ca mi da avertisment vers depreciated)
 
 
-df['RO'].plot(kind='hist')
-plot.show()
+
+# df.plot(kind='scatter', x='AL',y='AT',color='red')    #Scatter
+# plot.show()
+#
+#
+# df['RO'].plot(kind='hist')                           #Histograma
+# plot.show()
