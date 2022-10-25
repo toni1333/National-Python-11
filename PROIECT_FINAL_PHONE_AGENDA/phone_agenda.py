@@ -8,13 +8,13 @@ contact_list = []
 def open_file():
     with open('phone_agenda.txt',  'r') as file:
         reader = csv.reader(file, delimiter=',')
-        for elem in reader:
+        for elem in reader:             # citeste linie cu linie
             contact_list.append(elem)
-            select_set()
+            select_set()                # cu 'select.insert(...)'  afisez in widget lista citita
     print(contact_list)
 
 
-def save_file(contact_list):
+def save_file(contact_list):               # se apeleaza in 3 locuri 1add, 2update, 3delete
     with open('phone_agenda.txt', 'w', newline='') as csv_file:
         save_file=csv.writer(csv_file, delimiter=',')
         for row in contact_list:
@@ -25,14 +25,14 @@ def save_file(contact_list):
 def selectare():
     print("hello", len(select.curselection()))
     if len(select.curselection()) == 0:
-        messagebox.showerror("EROARE!", "Selectati nume pentru incarcare date!")
+        messagebox.showerror("EROARE!", "Selectati un nume pentru actualizare date!")
     else:
-        return int(select.curselection()[0])
+        return int(select.curselection()[0])       # returneaza un int pt incarcare contact_list si indexul de tip int
 
 
 def adddetail():
     if E_name.get() != "" and E_last_name.get() != "" and E_contact.get() != "":
-        if E_contact.get().isdigit():
+        if E_contact.get().isdigit():                # validare numar daca este digit merge mai departe
             contact_list.append([E_name.get() + ' ' + E_last_name.get(), E_contact.get()])
             save_file(contact_list)
             select_set()
@@ -62,12 +62,11 @@ def updatedetail():
         if len(select.curselection()) == 0:
             messagebox.showerror("EROARE!", "Va rugam incarcati toate campurile \n si apasati butonul de Actualizare")
         else:
-            message1 = """Pentru incarcare date selectati campul si apasati Actualizare.
-						  """
+            message1 = """Pentru incarcare date selectati campul si apasati Actualizare!"""
             messagebox.showerror("Error", message1)
 
 
-def entryreset():
+def entryreset():                       # ca sa mi inlature datele din label nume etc...
     E_name_var.set('')
     E_last_name_var.set('')
     E_contact_var.set('')
@@ -81,14 +80,14 @@ def deleteEntry():
             save_file(contact_list)
             select_set()
     else:
-        messagebox.showerror("EROARE!", 'Va rugam selectati numele')
+        messagebox.showerror("EROARE!", 'Va rugam selectati un nume pentru a sterge')
 
 
 def loadentry():
     name, phone = contact_list[selectare()]
-    print(name.split(' '))
-    E_name_var.set(name.split()[0])
-    E_last_name_var.set(name.split()[1])
+    print(name.split(' '))                      # cu split() impart in doua index[0] si index[1] din contact_list
+    E_name_var.set(name.split()[0])             # nume aloc index[0]
+    E_last_name_var.set(name.split()[1])        # l_nume aloc din index[1]
     E_contact_var.set(phone)
 
 def exitentry():
@@ -99,8 +98,8 @@ def exitentry():
 
 
 def select_set():
-    contact_list.sort(key=lambda elem:elem[0])
-    select.delete(0, END)
+    contact_list.sort(key=lambda elem:elem[0])   # sorteaza elem[0] -->  dupa nume in ordine
+    select.delete(0, END)                        # soreteaza elem[1] --> dupa numar prima cifra
     i = 0
     for name, phone in contact_list:
         i += 1
@@ -111,33 +110,39 @@ window = Tk()
 
 img = PhotoImage(file = 'PngItem_3858268.png')
 
+#---------  prima fereastra stanga sus
+
 Frame1 = LabelFrame(window, text="PHONE-AGENDA",bg='lightblue')
 Frame1.grid(padx=100, pady=100)
+#------- fereastra mai mica in prima fereastra
 
 Inside_Frame1 = Frame(Frame1)
 Inside_Frame1.grid(row=0, column=0, padx=50, pady=50)
+#------- declarat 3 label-uri
 
 l_name = Label(Inside_Frame1, text="Nume",bg='lightblue')
 l_name.grid(row=0, column=0, padx=5, pady=5)
 E_name_var = StringVar()
-
 E_name = Entry(Inside_Frame1, width=30, textvariable=E_name_var)
 E_name.grid(row=0, column=1, padx=5, pady=5)
-
 l_last_name = Label(Inside_Frame1, text="Prenume",bg='lightblue')
 l_last_name.grid(row=1, column=0, padx=5, pady=5)
-E_last_name_var = StringVar()
+E_last_name_var = StringVar()         # string1
 E_last_name = Entry(Inside_Frame1, width=30, textvariable=E_last_name_var)
 E_last_name.grid(row=1, column=1, padx=5, pady=5)
 
 l_contact = Label(Inside_Frame1, text="Numar de telefon",bg='lightblue')
 l_contact.grid(row=2, column=0, padx=5, pady=5)
-E_contact_var = StringVar()
+E_contact_var = StringVar()           # string2
 E_contact = Entry(Inside_Frame1, width=30, textvariable=E_contact_var)
 E_contact.grid(row=2, column=1, padx=5, pady=5)
 
+#------------ a 2 a fereastra dreapta sus
+
 Frame2 = Frame(window)
-Frame2.grid(row=0, column=1, padx=15, pady=15, sticky=E)
+Frame2.grid(row=0, column=1, padx=15, pady=15, sticky=E)   # row0 col1 alipit Dreapta sau sticky=EST legata de fereastra 3
+
+#---------- 3 butoane   add update reset
 
 Add_button = Button(Frame2, text="Adauga contact", width=15, bg="MediumSeaGreen", fg="black", command=adddetail)
 Add_button.grid(row=0, column=0, padx=8, pady=8)
@@ -147,7 +152,8 @@ Update_button.grid(row=1, column=0, padx=8, pady=8)
 
 Reset_button = Button(Frame2, text="Reseteaza", width=15, bg="lightyellow", fg="black", command=entryreset)
 Reset_button.grid(row=2, column=0, padx=8, pady=8)
-# ----------------------------------------------------------------------------
+
+# ---------- fereastra Display unde se afiseaza ['nume prenume', 'numarTelefon'] widget  are si scroll
 
 DisplayFrame = Frame(window)
 DisplayFrame.grid(row=1, column=0, padx=10, pady=10)
@@ -159,9 +165,12 @@ scroll.config(command=select.yview)
 select.grid(row=0, column=0, sticky=W)
 scroll.grid(row=0, column=1, sticky=N + S)
 
-# -----------------------------------------------------------------------------------
+# --------------- fereastra a 3 a jos dreapta
+
 ActionFrame = Frame(window)
-ActionFrame.grid(row=1, column=1, padx=15, pady=15, sticky=E)
+ActionFrame.grid(row=1, column=1, padx=15, pady=15, sticky=E)             #-- row1 col1 alipit Dreapta sau EST
+
+#------   3 butoane delete load exit
 
 Delete_button = Button(ActionFrame, text="Sterge", width=15, bg="darkred", fg="black", command=deleteEntry)
 Delete_button.grid(row=0, column=0, padx=5, pady=5, sticky=S)
@@ -172,7 +181,7 @@ Loadbutton.grid(row=1, column=0, padx=5, pady=5)
 Exit_button = Button(ActionFrame, text="Iesire", width=15, bg="red", fg="white", command=exitentry)
 Exit_button.grid(row=2, column=0, padx=5, pady=5, sticky=S)
 
-# --------------------------------- de aici ruleaza programul
+# --------------------------------- de aici ruleaza programul ---------------------------------
 
 
 open_file()
