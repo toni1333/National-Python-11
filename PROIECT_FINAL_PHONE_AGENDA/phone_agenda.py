@@ -2,7 +2,7 @@ from tkinter import *
 import csv
 from tkinter import messagebox
 
-contact_list = []
+contact_list = []                # se incarca ca si..  ['a  b','99']
 
 
 def open_file():
@@ -11,7 +11,7 @@ def open_file():
         for elem in reader:             # citeste linie cu linie
             contact_list.append(elem)
             select_set()                # cu 'select.insert(...)'  afisez in widget lista citita
-    print(contact_list)
+    print('open_file',contact_list)
 
 
 def save_file(contact_list):               # se apeleaza in 3 locuri 1add, 2update, 3delete
@@ -23,7 +23,7 @@ def save_file(contact_list):               # se apeleaza in 3 locuri 1add, 2upda
 
 
 def selectare():
-    print("hello", len(select.curselection()))
+    print("len cursor", len(select.curselection()))
     if len(select.curselection()) == 0:
         messagebox.showerror("EROARE!", "Selectati un nume pentru actualizare date!")
     else:
@@ -43,17 +43,19 @@ def adddetail():
 
     else:
         messagebox.showerror("EROARE!", "Va rugam completa-ti toate campurile!")
-    print('din add detail()',contact_list)
+
 
 
 def updatedetail():
     if E_name.get() and E_last_name.get() and E_contact.get():
-        contact_list[selectare()] = [E_name.get() + ' ' + E_last_name.get(), E_contact.get()]
-        save_file(contact_list)
-        messagebox.showinfo('CONFIRMARE!', "Contact actualizat cu SUCCES!")
-        entryreset()
-        select_set()
-
+        if E_contact.get().isdigit():
+            contact_list[selectare()] = [E_name.get() + ' ' + E_last_name.get(), E_contact.get()]
+            save_file(contact_list)
+            messagebox.showinfo('CONFIRMARE!', "Contact actualizat cu SUCCES!")
+            entryreset()
+            select_set()
+        else:
+            messagebox.showerror("EROARE!", "Va rugam introduce-ti un numarul de telefon valid!!")
     elif not (E_name.get()) and not (E_last_name.get()) and not (E_contact.get()) and not (
             len(select.curselection()) == 0):
         messagebox.showerror("EROARE!", "Selectati date pentru actualizare!")
@@ -66,7 +68,7 @@ def updatedetail():
             messagebox.showerror("Error", message1)
 
 
-def entryreset():                       # ca sa mi inlature datele din label nume etc...
+def entryreset():                       # ca sa-mi inlature datele din label nume etc...
     E_name_var.set('')
     E_last_name_var.set('')
     E_contact_var.set('')
@@ -98,8 +100,8 @@ def exitentry():
 
 
 def select_set():
-    contact_list.sort(key=lambda elem:elem[0])   # sorteaza elem[0] -->  dupa nume in ordine
-    select.delete(0, END)                        # soreteaza elem[1] --> dupa numar prima cifra
+    contact_list.sort()             # sorteaza dupa litera nume...
+    select.delete(0, END)
     i = 0
     for name, phone in contact_list:
         i += 1
@@ -120,21 +122,21 @@ Inside_Frame1 = Frame(Frame1)
 Inside_Frame1.grid(row=0, column=0, padx=50, pady=50)
 #------- declarat 3 label-uri
 
-l_name = Label(Inside_Frame1, text="Nume",bg='lightblue')
+l_name = Label(Inside_Frame1, text="Nume",bg='lightblue',font=("Arial Bold", 11))
 l_name.grid(row=0, column=0, padx=5, pady=5)
 E_name_var = StringVar()
-E_name = Entry(Inside_Frame1, width=30, textvariable=E_name_var)
+E_name = Entry(Inside_Frame1, width=30, textvariable=E_name_var,font=("Arial Bold", 11))
 E_name.grid(row=0, column=1, padx=5, pady=5)
-l_last_name = Label(Inside_Frame1, text="Prenume",bg='lightblue')
+l_last_name = Label(Inside_Frame1, text="Prenume",bg='lightblue',font=("Arial Bold", 11))
 l_last_name.grid(row=1, column=0, padx=5, pady=5)
 E_last_name_var = StringVar()         # string1
-E_last_name = Entry(Inside_Frame1, width=30, textvariable=E_last_name_var)
+E_last_name = Entry(Inside_Frame1, width=30, textvariable=E_last_name_var,font=("Arial Bold", 11))
 E_last_name.grid(row=1, column=1, padx=5, pady=5)
 
-l_contact = Label(Inside_Frame1, text="Numar de telefon",bg='lightblue')
+l_contact = Label(Inside_Frame1, text="Numar de telefon",bg='lightblue',font=("Arial Bold", 11))
 l_contact.grid(row=2, column=0, padx=5, pady=5)
 E_contact_var = StringVar()           # string2
-E_contact = Entry(Inside_Frame1, width=30, textvariable=E_contact_var)
+E_contact = Entry(Inside_Frame1, width=30, textvariable=E_contact_var,font=("Arial Bold", 11))
 E_contact.grid(row=2, column=1, padx=5, pady=5)
 
 #------------ a 2 a fereastra dreapta sus
