@@ -68,7 +68,7 @@ def updatedetail():
             messagebox.showerror("Error", message1)
 
 
-def entryreset():                       # ca sa-mi inlature datele din label nume etc...
+def entryreset():                       # ca sa-mi inlature datele din label nume etc... altfel tot trebuie sa dau reset
     E_name_var.set('')
     E_last_name_var.set('')
     E_contact_var.set('')
@@ -87,10 +87,10 @@ def deleteEntry():
 
 def loadentry():
     name, phone = contact_list[selectare()]
-    print(name.split(' '))                      # cu split() impart in doua index[0] si index[1] din contact_list
+    print(name.split(' '))                      # cu split() impart in doua "spatiu"  index[0] si index[1] din contact_list
     E_name_var.set(name.split()[0])             # nume aloc index[0]
     E_last_name_var.set(name.split()[1])        # l_nume aloc din index[1]
-    E_contact_var.set(phone)
+    E_contact_var.set(phone)                    # phone e dupa virgula din contact_list
 
 def exitentry():
     msg_box = messagebox.askquestion('IESIRE DIN APLICATIE!', 'Sunteti sigur ca vreti sa iesiti?',
@@ -155,7 +155,7 @@ Update_button.grid(row=1, column=0, padx=8, pady=8)
 Reset_button = Button(Frame2, text="Reseteaza", width=15, bg="lightyellow", fg="black", command=entryreset)
 Reset_button.grid(row=2, column=0, padx=8, pady=8)
 
-# ---------- fereastra Display unde se afiseaza ['nume prenume', 'numarTelefon'] widget  are si scroll
+# ---------- fereastra Display unde se afiseaza ['nume prenume', 'numarTelefon'] widget, scroll
 
 DisplayFrame = Frame(window)
 DisplayFrame.grid(row=1, column=0, padx=10, pady=10)
