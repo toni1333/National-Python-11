@@ -26,7 +26,7 @@ def ali():
 
 
 def memorare_ag():
-    with open("phone_agenda.txt", "w") as fp2:
+    with open("agenda.txt", "w") as fp2:
         fp2.write(str(people))
 
 
@@ -69,7 +69,7 @@ def AF():
 
 """----------------aici ruleaza-------------"""
 while True:
-    with open('phone_agenda.txt', 'r+') as f:
+    with open('agenda.txt', 'r+') as f:
         lines = f.read()
         if len(lines) == 0:
             break
